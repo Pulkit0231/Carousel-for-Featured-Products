@@ -6,33 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Carousel</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 
 <body>
-    <div class="heading">
-        <h1>Gaming Products</h1>
+    <div class="wrapper">
+        <i id="left" class="fa-solid  fas fa-angle-left"></i>
+        <ul class="carousel">
+            <li class="card">
+                <div class="img"><img src="./img/Console.jpg" alt="Console" draggable="false"> </div>
+                <h2 style="color: black; font-weight:bold;">
+                    Console
+                </h2>
+            </li>
+            <li class="card">
+                <div class="img"><img src="./img/Headphones.jpg" alt="Headphone" draggable="false"> </div>
+                <h2 style="color: black; font-weight:bold;">Headphone</h2>
+            </li>
+            <li class="card">
+                <div class="img"><img src="./img/keyboard.png" alt="keyboard" draggable="false"> </div>
+                <h2 style="color: black; font-weight:bold;">Keyboard</h2>
+            </li>
+            <li class="card">
+                <div class="img"><img src="./img/mouse.jpg" alt="mouse" draggable="false"> </div>
+                <h2 style="color: black; font-weight:bold;">Mouse</h2>
+            </li>
+            <li class="card">
+                <div class="img"><img src="./img/VR.jpg" alt="VR" draggable="false"> </div>
+                <h2 style="color: black; font-weight:bold;">VR Headset</h2>
+            </li>
+        </ul>
+        <i id="right" class="fa-solid fas fa-angle-right"></i>
     </div>
-    <div class="carousel-container">
-        <div class="carousel" id="carousel">
-            <div class="carousel-item">
-                <img src="./img/Console.jpg" alt="Console">
-            </div>
-            <div class="carousel-item">
-                <img src="./img/Headphones.jpg" alt="Headphone">
-            </div>
-            <div class="carousel-item">
-                <img src="./img/keyboard.png" alt="keyboard">
-            </div>
-            <div class="carousel-item">
-                <img src="./img/mouse.jpg" alt="mouse">
-            </div>
-            <div class="carousel-item">
-                <img src="./img/VR.jpg" alt="VR">
-            </div>
-        </div>
-        <div class="prev" onclick="prevSlide()">&#10094;</div>
-        <div class="next" onclick="nextSlide()">&#10095;</div>
-    </div>
+
 
     <script src="script.js"></script>
 </body>

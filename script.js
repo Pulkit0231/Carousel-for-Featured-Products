@@ -1,25 +1,68 @@
-let currentIndex = 0;
-const slides = document.querySelectorAll('.carousel-item');
+document.addEventListener("DOMContentLoaded", function () {
+    const carousel = document.querySelector(".carousel");
+    const arrowBtns = document.querySelectorAll(".wrapper i");
+    const wrapper = document.querySelector(".wrapper");
 
-function showSlide(index) {
-    if (index < 0) {
-        currentIndex = slides.length - 1;
-    } else if (index >= slides.length) {
-        currentIndex = 0;
-    } else {
-        currentIndex = index;
-    }
-    const offset = -currentIndex * slides[0].offsetWidth;
-    document.querySelector('.carousel').style.transform = `translateX(${offset}px)`;
-    console.log(slides)
-}
+    const firstCard = carousel.querySelector(".card");
+    const firstCardWidth = firstCard.offsetWidth;
 
-function prevSlide() {
-    showSlide(currentIndex - 1);
-}
+    let isDragging = false,
+        startX,
+        startScrollLeft,
+        timeoutId;
 
-function nextSlide() {
-    showSlide(currentIndex + 1);
-}
+    const dragStart = (e) => {
+        isDragging = true;
+        carousel.classList.add("dragging");
+        startX = e.pageX;
+        startScrollLeft = carousel.scrollLeft;
+    };
 
-setInterval(nextSlide, 3000); 
+    const dragging = (e) => {
+        if (!isDragging) return;
+
+        const newScrollLeft = startScrollLeft - (e.pageX - startX);
+
+        if (newScrollLeft <= 0 || newScrollLeft >=
+            carousel.scrollWidth - carousel.offsetWidth) {
+
+            isDragging = false;
+            return;
+        }
+
+        carousel.scrollLeft = newScrollLeft;
+    };
+
+    const dragStop = () => {
+        isDragging = false;
+        carousel.classList.remove("dragging");
+    };
+
+    const autoPlay = () => {
+
+        if (window.innerWidth < 800) return;
+
+        const totalCardWidth = carousel.scrollWidth;
+
+        const maxScrollLeft = totalCardWidth - carousel.offsetWidth;
+
+        if (carousel.scrollLeft >= maxScrollLeft) return;
+
+        timeoutId = setTimeout(() =>
+            carousel.scrollLeft += firstCardWidth, 2000);
+    };
+
+    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("mousemove", dragging);
+    document.addEventListener("mouseup", dragStop);
+    wrapper.addEventListener("mouseenter", () =>
+        clearTimeout(timeoutId));
+    wrapper.addEventListener("mouseleave", autoPlay);
+
+    arrowBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            carousel.scrollLeft += btn.id === "left" ?
+                -firstCardWidth : firstCardWidth;
+        });
+    });
+}); 
